@@ -1,0 +1,159 @@
+# NYAN FILE 
+version 0.1.0
+
+ArcheryRange(GameEntity):
+    GameEntity.types = {Building, BuildingMisc}
+    GameEntity.variants = {}
+    GameEntity.abilities = {Create, Idle, Live, LineOfSight, Move, Named, Stop, Turn, Visibility}
+    GameEntity.modifiers = {}
+
+    Create(Create):
+        Create.creatables = {ArcherCreatable, SkirmisherCreatable, HorseArcherCreatable, HandCannoneerCreatable}
+
+        ArcherCreatable(CreatableGameEntity):
+            CreatableGameEntity.game_entity = Archer
+            CreatableGameEntity.cost = Cost
+            CreatableGameEntity.creation_time = 35.0f
+            CreatableGameEntity.creation_sound = CreationSound
+            CreatableGameEntity.condition = {}
+            CreatableGameEntity.placement_modes = {Eject}
+
+            CreationSound(Sound):
+                Sound.play_delay = 0.0f
+                Sound.sounds = o{"../shared/sounds/creation_sound_337.opus"}
+
+            Cost(ResourceCost):
+                ResourceCost.amount = {WoodAmount, GoldAmount}
+                Cost.payment_mode = Advance
+
+                WoodAmount(ResourceAmount):
+                    ResourceAmount.type = Wood
+                    ResourceAmount.amount = 25
+
+                GoldAmount(ResourceAmount):
+                    ResourceAmount.type = Gold
+                    ResourceAmount.amount = 45
+
+        SkirmisherCreatable(CreatableGameEntity):
+            CreatableGameEntity.game_entity = Skirmisher
+            CreatableGameEntity.cost = Cost
+            CreatableGameEntity.creation_time = 22.0f
+            CreatableGameEntity.creation_sound = CreationSound
+            CreatableGameEntity.condition = {}
+            CreatableGameEntity.placement_modes = {Eject}
+
+            CreationSound(Sound):
+                Sound.play_delay = 0.0f
+                Sound.sounds = o{"../shared/sounds/creation_sound_337.opus"}
+
+            Cost(ResourceCost):
+                ResourceCost.amount = {FoodAmount, WoodAmount}
+                Cost.payment_mode = Advance
+
+                FoodAmount(ResourceAmount):
+                    ResourceAmount.type = Food
+                    ResourceAmount.amount = 25
+
+                WoodAmount(ResourceAmount):
+                    ResourceAmount.type = Wood
+                    ResourceAmount.amount = 35
+
+        HorseArcherCreatable(CreatableGameEntity):
+            CreatableGameEntity.game_entity = HorseArcher
+            CreatableGameEntity.cost = Cost
+            CreatableGameEntity.creation_time = 34.0f
+            CreatableGameEntity.creation_sound = CreationSound
+            CreatableGameEntity.condition = {}
+            CreatableGameEntity.placement_modes = {Eject}
+
+            CreationSound(Sound):
+                Sound.play_delay = 0.0f
+                Sound.sounds = o{"../shared/sounds/creation_sound_337.opus"}
+
+            Cost(ResourceCost):
+                ResourceCost.amount = {WoodAmount, GoldAmount}
+                Cost.payment_mode = Advance
+
+                WoodAmount(ResourceAmount):
+                    ResourceAmount.type = Wood
+                    ResourceAmount.amount = 40
+
+                GoldAmount(ResourceAmount):
+                    ResourceAmount.type = Gold
+                    ResourceAmount.amount = 70
+
+        HandCannoneerCreatable(CreatableGameEntity):
+            CreatableGameEntity.game_entity = HandCannoneer
+            CreatableGameEntity.cost = Cost
+            CreatableGameEntity.creation_time = 34.0f
+            CreatableGameEntity.creation_sound = CreationSound
+            CreatableGameEntity.condition = {}
+            CreatableGameEntity.placement_modes = {Eject}
+
+            CreationSound(Sound):
+                Sound.play_delay = 0.0f
+                Sound.sounds = o{"../shared/sounds/creation_sound_337.opus"}
+
+            Cost(ResourceCost):
+                ResourceCost.amount = {FoodAmount, GoldAmount}
+                Cost.payment_mode = Advance
+
+                FoodAmount(ResourceAmount):
+                    ResourceAmount.type = Food
+                    ResourceAmount.amount = 45
+
+                GoldAmount(ResourceAmount):
+                    ResourceAmount.type = Gold
+                    ResourceAmount.amount = 50
+
+    Idle(Idle, AnimatedAbility):
+        AnimatedAbility.animations = {IdleAnimation}
+
+        IdleAnimation(Animation):
+            Animation.sprite = "./graphics/idle_archery_range.sprite"
+
+    Live(Live):
+        Live.attributes = {Health}
+
+        Health(AttributeSetting):
+            AttributeSetting.attribute = Health
+            AttributeSetting.min_value = -1
+            AttributeSetting.max_value = 1500
+            AttributeSetting.starting_value = 1500
+
+    LineOfSight(LineOfSight, DiplomaticAbility):
+        LineOfSight.range = 6.0f
+        DiplomaticAbility.stances = {Self}
+
+    Move(Move, DiplomaticAbility):
+        Move.speed = 0.0f
+        Move.modes = {AttackMove, Normal, Patrol, Follow}
+        DiplomaticAbility.stances = {Self}
+
+        Follow(Follow):
+            Follow.range = 5.0f
+
+    Named(Named):
+        Named.name = ArcheryRangeName
+        Named.description = ArcheryRangeDescription
+        Named.long_description = ArcheryRangeLongDescription
+
+        ArcheryRangeName(TranslatedString):
+            TranslatedString.translations = {}
+
+        ArcheryRangeDescription(TranslatedMarkupFile):
+            TranslatedMarkupFile.translations = {}
+
+        ArcheryRangeLongDescription(TranslatedMarkupFile):
+            TranslatedMarkupFile.translations = {}
+
+    Stop(Stop, DiplomaticAbility):
+        DiplomaticAbility.stances = {Self}
+
+    Turn(Turn, DiplomaticAbility):
+        Turn.turn_speed = inf
+        DiplomaticAbility.stances = {Self}
+
+    Visibility(Visibility):
+        Visibility.visible_in_fog = False
+
