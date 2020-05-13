@@ -34,6 +34,7 @@ error-chain = "0.12"
 [dev-dependencies]
 lazy_static = "1.4.0"
 pretty_assertions = "0.6.1"
+simple_logger = "1.6.0"
 
 [package.metadata.release]
 upload-doc = true

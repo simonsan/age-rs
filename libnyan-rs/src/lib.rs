@@ -14,6 +14,7 @@ mod errors {
     error_chain! {}
 }
 
+mod parse;
 
 use errors::*;
 
