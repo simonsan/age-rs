@@ -5,11 +5,21 @@ on:
     - staging
     - trying
     - master
+    - develop
+    - 'release/**'
+    - 'feature/**'
+    - 'fix/**'
+    - 'support/**'
   pull_request:
     branches:
     - staging
     - trying
     - master
+    - develop
+    - 'release/**'
+    - 'feature/**'
+    - 'fix/**'
+    - 'support/**'
 
 env:
   RUST_BACKTRACE: 1
