@@ -14,7 +14,17 @@ mod errors {
     error_chain! {}
 }
 
-mod parse;
+#![warn(
+	missing_debug_implementations,
+	missing_docs,
+	rust_2018_idioms,
+	rust_2018_compatibility
+)]
+#![warn(clippy::all)]
+
+pub mod cgs;
+pub mod lex;
+pub mod parse;
 
 use errors::*;
 
