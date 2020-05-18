@@ -19,16 +19,21 @@ include = [
 ]
 
 [dependencies]
-froggy = "0.4.4"
-pest = "2.1.3"
-pest_derive = "2.1.0"
-logos="0.11.4"
-logos_derive="0.11.5"
-clap = "2.33.1"
-assert_cmd = "1.0.1"
+froggy = "~0.4"
+pest = "~2.1"
+pest_derive = "~2.1"
+logos="~0.11"
+clap = "~2.33"
+assert_cmd = "~1.0"
+error-chain = "~0.12"
 
 [build-dependencies]
-bindgen = "0.53.2"
+bindgen = "~0.53"
+
+[dev-dependencies]
+lazy_static = "~1.4"
+pretty_assertions = "~0.6"
+simple_logger = "~1.6"
 
 [lib]
 name = "libnyan_rs"
@@ -37,10 +42,6 @@ crate-type = ["rlib"]
 path = "src/lib.rs"
 test = true
 doc = true
-
-[dev-dependencies]
-lazy_static = "1.4.0"
-pretty_assertions = "0.6.1"
 
 [package.metadata.release]
 upload-doc = true
