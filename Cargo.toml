@@ -26,12 +26,8 @@ exclude = []
 members = ["libnyan-rs", "libopenage-rs"]
 
 [dependencies]
-error-chain = "~0.12"
-
-[dev-dependencies]
-lazy_static = "~1.4"
-pretty_assertions = "~0.6"
-simple_logger = "~1.6"
+libnyan-rs = { version = "0.1.0", path = "libnyan-rs" }
+libopenage-rs = { version = "0.1.0", path = "libopenage-rs" }
 
 [badges]
 maintenance = { status = "actively-developed" }

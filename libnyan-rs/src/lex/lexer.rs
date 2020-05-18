@@ -2,10 +2,7 @@
 
 // lexer.rs
 // Lexical Analyzer stage
-use logos::{
-	self,
-	Logos,
-};
+use logos::{Logos, Lexer};
 
 #[derive(Logos, Debug, Clone, Copy, PartialEq)]
 enum Token {
@@ -82,6 +79,7 @@ enum Token {
 	// it can be named anything you wish.
 	#[error]
 	ERROR,
+
 	/* TODO
 	 * #[token("")]
 	 * INVALID, */
@@ -99,11 +97,13 @@ enum Token {
 	 * STRING, */
 }
 
-fn track_brackets() {
+fn track_brackets(lex: &mut Lexer<Token>) -> Option<String> {
+	let _slice = lex.slice();
 	unimplemented!()
 }
 
-fn handle_indent() {
+fn handle_indent(lex: &mut Lexer<Token>) -> Option<String> {
+	let _slice = lex.slice();
 	unimplemented!()
 }
 

@@ -34,6 +34,7 @@ bindgen = "~0.53"
 lazy_static = "~1.4"
 pretty_assertions = "~0.6"
 simple_logger = "~1.6"
+structopt = "~0.3"
 
 [lib]
 name = "libnyan_rs"
