@@ -2,6 +2,14 @@
 
 // Entrypoint for libnyan-rs
 
+#![warn(
+	missing_debug_implementations,
+	missing_docs,
+	rust_2018_idioms,
+	rust_2018_compatibility
+)]
+#![warn(clippy::all)]
+
 // `error_chain!` can recurse deeply
 #![recursion_limit = "1024"]
 
@@ -14,13 +22,7 @@ mod errors {
     error_chain! {}
 }
 
-#![warn(
-	missing_debug_implementations,
-	missing_docs,
-	rust_2018_idioms,
-	rust_2018_compatibility
-)]
-#![warn(clippy::all)]
+
 
 pub mod cgs;
 pub mod lex;
