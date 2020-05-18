@@ -5,7 +5,7 @@
 
 #[macro_use]
 use pest_derive;
-use pest::Parser;
+use pest;
 
 enum NyanValue<'a> {
 	Object(Vec<(&'a str, NyanValue<'a>)>),

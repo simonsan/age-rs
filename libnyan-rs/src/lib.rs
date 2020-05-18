@@ -50,6 +50,15 @@ fn main() {
 }
 
 
+fn run() -> Result<()> {
+    use std::fs::File;
+
+    // This operation will fail
+    File::open("contacts")
+        .chain_err(|| "unable to open contacts file")?;
+
+    Ok(())
+}
 
 
 #[cfg(test)]
