@@ -2,113 +2,130 @@
 
 // lexer.rs
 // Lexical Analyzer stage
-use logos;
-use logos::Logos;
+use logos::{
+	self,
+	Logos,
+};
 
-#[derive(Logos, Debug, PartialEq)]
+#[derive(Logos, Debug, Clone, Copy, PartialEq)]
 enum Token {
-    #[token("as")]
-    AS,
+	#[token("#", logos::skip)]
+	COMMENT,
 
-    #[token("@")]
-    AT,
+	#[token("as")]
+	AS,
 
-    #[token(":")]
-    COLON,
+	#[token("@")]
+	AT,
 
-    #[token(",")]
-    COMMA,
+	#[token(":")]
+	COLON,
 
-    #[token(".")]
-    DOT,
+	#[token(",")]
+	COMMA,
 
-   #[regex(r"[\n]")]
-    ENDLINE,
+	#[token(".")]
+	DOT,
 
-    #[token("...")]
-    ELLIPSIS,
+	#[regex(r"[\n]")]
+	ENDLINE,
 
-    #[regex(r"-?[0-9]+\.[0-9]*", |lex| lex.slice().parse())]
-    Float(f64),
+	#[token("...")]
+	ELLIPSIS,
 
-    #[token("from")]
-    FROM,
+	#[regex(r"-?[0-9]+\.[0-9]*", |lex| lex.slice().parse())]
+	Float(f64),
 
-    #[regex("[A-Za-z_][A-Za-z0-9_]*")]
-    ID,
+	#[token("from")]
+	FROM,
 
-    #[token("import")]
-    IMPORT,
+	#[regex("[A-Za-z_][A-Za-z0-9_]*")]
+	ID,
 
-    #[regex("(-|0[xX])?[0-9]+", |lex| lex.slice().parse())]
-    Integer(i64),
+	#[token("import")]
+	IMPORT,
 
-    #[token("<")]
-    LANGLE,
+	#[regex("(-|0[xX])?[0-9]+", |lex| lex.slice().parse())]
+	Integer(i64),
 
-    #[token("{")]
-    LBRACE,
+	#[token("<")]
+	LANGLE,
 
-    #[token("[")]
-    LBRACKET,
+	#[token("{")]
+	LBRACE,
 
-    #[token("(")]
-    LPAREN,
+	#[token("[")]
+	LBRACKET,
 
-    #[regex("[-+*/|%&]|[-+*/|%&]=|=")]
-    OPERATOR,
+	#[token("(")]
+	LPAREN,
 
-    #[token("pass")]
-    PASS,
+	#[regex("[-+*/|%&]|[-+*/|%&]=|=")]
+	OPERATOR,
 
-    #[token(">")]
-    RANGLE,
+	#[token("pass")]
+	PASS,
 
-    #[token("}")]
-    RBRACE,
+	#[token(">")]
+	RANGLE,
 
-    #[token("]")]
-    RBRACKET,
+	#[token("}")]
+	RBRACE,
 
-    #[token(")")]
-    RPAREN,
+	#[token("]")]
+	RBRACKET,
+
+	#[token(")")]
+	RPAREN,
 
 	// Logos requires one token variant to handle errors,
-    // it can be named anything you wish.
-    #[error]
-    ERROR,
+	// it can be named anything you wish.
+	#[error]
+	ERROR,
+	/* TODO
+	 * #[token("")]
+	 * INVALID, */
 
-    // TODO
-    // #[token("")]
-    // INVALID,
+	/* #[token(" ")]
+	 * INDENT, */
 
-    // #[token(" ", handle_indent())]
-    // INDENT,
+	/* #[token(" ")]
+	 * DEDENT, */
 
-    // #[token(" ", handle_indent())]
-    // DEDENT,
+	/* #[token("")]
+	 * ENDFILE, */
 
-    // #[token("")]
-    // ENDFILE,
-
-    // #[regex(b"\"(\.|[ˆ\"])*\"")]
-    // STRING,
+	/* #[regex(b"\"(\.|[ˆ\"])*\"")]
+	 * STRING, */
 }
 
-fn track_brackets() {} 
+fn track_brackets() {
+	unimplemented!()
+}
 
-fn handle_indent() {}
-
+fn handle_indent() {
+	unimplemented!()
+}
 
 #[test]
 fn lexer() {
-    let mut lex = Token::lexer(
-    	concat!(
-            "GameEntity.types = {Building, BuildingMisc}",
-            "Sound.play_delay = 0.0f",
-            // "Sound.sounds = o{"../shared/sounds/creation_sound_337.opus"}",
-            "ResourceCost.amount = {WoodAmount, GoldAmount}",
-            // "Animation.sprite = "./graphics/idle_archery_range.sprite"",
-        ),
-);
+	let mut lex = Token::lexer(concat!(
+		"# NYAN FILE",
+		"0.0f",
+		"GameEntity.types = {Building, BuildingMisc}",
+		// "Sound.sounds = o{"../shared/sounds/creation_sound_337.opus"}",
+		"ResourceCost.amount = {WoodAmount, GoldAmount}",
+		// "Animation.sprite = "./graphics/idle_archery_range.sprite"",
+	));
+
+	assert_eq!(lex.next(), Some(Token::COMMENT));
+	assert_eq!(lex.next(), Some(Token::Float(0.0)));
+	// assert_eq!(lex.slice(),"
+	// abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".
+	// as_bytes());
+
+	// assert_eq!(lex.next(), Some(Token::OtherAsciiPrintable));
+	// assert_eq!(lex.slice(), "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~".as_bytes());
+
+	assert_eq!(lex.next(), None);
 }
