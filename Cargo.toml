@@ -29,6 +29,7 @@ members = ["libnyan-rs", "libopenage-rs"]
 maintenance = { status = "actively-developed" }
 
 [dependencies]
+error-chain = "0.12"
 
 [dev-dependencies]
 lazy_static = "1.4.0"
